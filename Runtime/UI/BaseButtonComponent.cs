@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace WalloutStudio.Screens.UI
@@ -31,6 +32,27 @@ namespace WalloutStudio.Screens.UI
         public virtual void Unblock()
         {
             ButtonComponent.interactable = true;
+        }
+
+        public void ResetCallbacks()
+        {
+            ButtonComponent.onClick.RemoveAllListeners();
+        }
+        
+        public void SetCallback(UnityAction callback)
+        {
+            ResetCallbacks();
+            AddCallback(callback);
+        }
+
+        public void AddCallback(UnityAction callback)
+        {
+            ButtonComponent.onClick.AddListener(callback);
+        }
+
+        public void RemoveCallback(UnityAction callback)
+        {
+            ButtonComponent.onClick.RemoveListener(callback);
         }
     }
 }

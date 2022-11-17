@@ -1,31 +1,48 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace WalloutStudio.Screens.UI
 {
     public class BaseScreenManager : MonoBehaviour
     {
         protected static BaseScreenManager instance;
+
+        public float AspectRation = 0.57f;
         
         [SerializeField] private Canvas canvas;
+        [SerializeField] private CanvasScaler scaler;
         [SerializeField] private List<BaseScreen> screens = new();
 
         private readonly List<BaseScreen> instantiatedScreens = new();
         
         private void Awake()
         {
+            Init();
+        }
+
+        private void Init()
+        {
             if (instance == null)
             {
                 instance = this;
+                
+                scaler.matchWidthOrHeight = GetScalerMatch();
+                DontDestroyOnLoad(canvas);
             }
-            
-            DontDestroyOnLoad(canvas);
         }
 
         public static void UpdateCanvas()
         {
             var cameraComponent = FindObjectOfType<Camera>();
             instance.canvas.worldCamera = cameraComponent;
+            instance.scaler.matchWidthOrHeight = instance.GetScalerMatch();
+        }
+
+        private float GetScalerMatch()
+        {
+            var ration = (float)Screen.width / Screen.height;
+            return ration < AspectRation ? 0 : 1;
         }
         
         public void ShowScreen<T>(BaseScreenParameters parameters = null, BaseComponent hideCurrent = null) where T : BaseScreen
@@ -60,6 +77,21 @@ namespace WalloutStudio.Screens.UI
             if (targetScreen == null) return;
             
             targetScreen.Hide();
+        }
+
+        public static void HideAll()
+        {
+            instance.HideAll_INTERNAL();
+        }
+        
+        private void HideAll_INTERNAL()
+        {
+            foreach (var screen in instantiatedScreens)
+            {
+                if (!screen.gameObject.activeSelf) continue;
+                
+                screen.Hide();
+            }
         }
         
         public static BaseScreen GetInstantiatedScreenByType<T>() where T : BaseScreen
