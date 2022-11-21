@@ -8,7 +8,7 @@ namespace WalloutStudio.Screens.UI
     {
         protected TextMeshProUGUI Component;
 
-        public void SetText(string text)
+        public virtual void SetText(string text)
         {
             Component.text = text;
         }
