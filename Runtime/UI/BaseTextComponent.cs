@@ -6,7 +6,7 @@ namespace WalloutStudio.Screens.UI
     [RequireComponent(typeof(TextMeshProUGUI))]
     public class BaseTextComponent : BaseComponent
     {
-        protected TextMeshProUGUI Component;
+        [SerializeField] protected TextMeshProUGUI Component;
 
         public virtual void SetText(string text)
         {
