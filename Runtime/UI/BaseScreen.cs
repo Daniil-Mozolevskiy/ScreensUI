@@ -1,6 +1,8 @@
+using WalloutStudio.Screens.Controllers;
+
 namespace WalloutStudio.Screens.UI
 {
-    public class BaseScreen : BaseComponent
+    public class BaseScreen : BaseController
     {
         private BaseScreenParameters parameters;
 

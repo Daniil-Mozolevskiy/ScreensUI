@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace WalloutStudio.Screens.UI
+namespace WalloutStudio.Screens.Controllers
 {
     /// <summary>
     /// Safe area implementation for notched mobile devices. Usage:

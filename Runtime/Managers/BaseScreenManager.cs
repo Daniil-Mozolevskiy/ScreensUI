@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using WalloutStudio.Screens.UI;
 
-namespace WalloutStudio.Screens.UI
+namespace WalloutStudio.Screens.Managers
 {
     public class BaseScreenManager : MonoBehaviour
     {
@@ -45,7 +46,7 @@ namespace WalloutStudio.Screens.UI
             return ration < AspectRation ? 0 : 1;
         }
         
-        public void ShowScreen<T>(BaseScreenParameters parameters = null, BaseComponent hideCurrent = null) where T : BaseScreen
+        public void ShowScreen<T>(BaseScreenParameters parameters = null, BaseScreen hideCurrent = null) where T : BaseScreen
         {
             if (hideCurrent)
             {
