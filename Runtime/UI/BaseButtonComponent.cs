@@ -6,7 +6,7 @@ namespace WalloutStudio.Screens.UI
 {
     public class BaseButtonComponent : BaseComponent
     {
-        public Button ButtonComponent;
+        public Button Component;
         
         [SerializeField] protected bool isInteractableOnStart = true;
 
@@ -26,17 +26,17 @@ namespace WalloutStudio.Screens.UI
 
         public virtual void Block()
         {
-            ButtonComponent.interactable = false;
+            Component.interactable = false;
         }
         
         public virtual void Unblock()
         {
-            ButtonComponent.interactable = true;
+            Component.interactable = true;
         }
 
         public void ResetCallbacks()
         {
-            ButtonComponent.onClick.RemoveAllListeners();
+            Component.onClick.RemoveAllListeners();
         }
         
         public void SetCallback(UnityAction callback)
@@ -47,12 +47,20 @@ namespace WalloutStudio.Screens.UI
 
         public void AddCallback(UnityAction callback)
         {
-            ButtonComponent.onClick.AddListener(callback);
+            Component.onClick.AddListener(callback);
         }
 
         public void RemoveCallback(UnityAction callback)
         {
-            ButtonComponent.onClick.RemoveListener(callback);
+            Component.onClick.RemoveListener(callback);
+        }
+
+        private void OnValidate()
+        {
+            if (Component == null)
+            {
+                Component = GetComponent<Button>();
+            }
         }
     }
 }
